@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+
+    <head>
+        <title> This is my first HTML page</title>
+        <style>
+		h1, h2, h3, h4, h5, h6, .w3-slim, .w3-wide {
+		    font-family: "Segoe UI",Arial,sans-serif;
+		}        	
+        </style>
+    </head>
+    <body>
+    	<div data-ng-app="myApp" data-ng-controller="myCtrl">
+    		<span data-ng-bind="firstName"></span>&nbsp;<span data-ng-bind="lastName"></span>
+    	</div>
+
+    </body>
+    <script src="scripts/angular.min.js"></script>
+    <script type="text/javascript">
+    	var myApp = angular.module("myApp", []);
+
+    	myApp.controller("myCtrl", function($scope){
+    		$scope.firstName = "Ujjwal";
+    		$scope.lastName = "Kumar";
+    	});
+
+    </script>
+    
+</html>

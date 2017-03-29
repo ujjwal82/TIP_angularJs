@@ -3,24 +3,29 @@
 
     <head>
         <title> This is my first HTML page</title>
+        <style>
+		h1, h2, h3, h4, h5, h6, .w3-slim, .w3-wide {
+		    font-family: "Segoe UI",Arial,sans-serif;
+		}        	
+        </style>
     </head>
-        <script src="scripts/angular.min.js"></script>
-    
     <body ng-controller="sampleCtrl">
         <div>
 	      <h1>One way binding</h1>
+	      <h2>ng-bind</h2>
 	      <div>
-		    Name: <input type="text1" name="txtName" ng-bind="name"> 
+		    Name: <input type="text1" name="txtName" ng-bind="name">  (using ng-bind)
 		    <br/>
 		    <br/>
 		    Hello: {{name}}
 		    <br/>
 		    <br/>
-		    Name: <input type="text2" name="txtName" ng-model="greet"> 
+		    Name: <input type="text2" name="txtName" ng-model="greet"> (using ng-model)
 		    <br/>
 		    <br/>
 		    Hello: {{greet}}
 
+			<h2>ng-init</h2>
 			  <div ng-init="firstName='Ujjwal'; lastName='Kumar'">
 			  	First Name: {{firstName}} <br>
 			  	Last Name:  {{lastName}} <br>
@@ -29,17 +34,43 @@
 
 			  	First Name: <span ng-bind="firstName"></span> <br>
 			  	Last Name: <span ng-bind="lastName"></span> <br>
+
+				  <h3> Initialize variable through ng-init >> function call   </h3>
+				  <div ng-init="init()"></div>
+				  a = {{a}}
 			  </div>
 
-			  <div ng-init="init()">
-			  </div>
+			<h2> Angular objects</h2>
+			<div ng-init="person={firstName:'Ujjwal', lastName:'Kumar'}">
+				Full name: <span ng-bind="person.firstName"> </span> <span ng-bind="person.lastName"> </span> <br/>
+
+			</div>
+
+			<h2>AngularJS Arrays</h2>
+			<div ng-init="points=[1,2,3,4,5,6]">
+				<p> The third piont is : <span ng-bind="points[2]"> </span></p> 
+				<p> The Second person in the list is : <span ng-bind="persons[1]"></span> </p>
+			</div>
+
 		  </div>
     </body>
+    <script src="scripts/angular.min.js"></script>
     <script type="text/javascript">
-    	var myApp = angular.module("myApp",[]);
+    	var myApp = angular.module('myApp', []);
 
-	    myApp.controller("sampleCtrl",[$scope, function(){
-	    	$scope.a = "This is initialized in controller";
-	    }]);
+		myApp.controller('myCtrl', function($scope) {
+		});  
+		  	
+	    myApp.controller("sampleCtrl", function($scope){
+		    $scope.firstName= "John";
+		    $scope.lastName= "Doe";
+
+		    $scope.persons = ["Ujjwal Kumar", "Swapnil Joshi", "Shivraj Pachling"]
+
+	    	$scope.init =  function(){
+		    	$scope.a = "This is initialized in controller";
+	    	}
+	    });
     </script>
+    
 </html>
