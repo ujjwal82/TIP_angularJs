@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+
+    <head>
+        <title> This is my first HTML page</title>
+    </head>
+        <script src="scripts/angular.min.js"></script>
+    
+    <body>
+        <div>
+	      <h1>ng-if</h1>
+	      <div ng-app = "">
+		    Name: <input type="text" name="txtName" ng-model="name"> 
+		    <br/>
+		    <br/>
+		    Hello: {{name}}
+		  </div>
+
+		  <div>
+		  	<input type="checkbox" name="chkSelect" ng-model="checked">
+
+		  	<div ng-if="checked">
+		  		{{ }}
+		  	</div>
+		  </div>
+    </body>
+</html>
