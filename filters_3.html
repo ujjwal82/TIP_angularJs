@@ -1,0 +1,66 @@
+<!doctype html>
+<html ng-app="myApp">
+
+    <head>
+        <title> Angular - filter examples</title>
+        <style>
+			body {
+			    font-family: "Segoe UI",Arial,sans-serif;
+			}
+			.odd{
+				background-color: #fff;
+			}
+			.even{
+				background-color: #ececec;
+			}
+			.odd:hover,.even:hover{
+				background-color: #ccc;
+			}
+			table{
+				border-collapse: collapse;
+				word-spacing: 5px;
+				border: 1px solid #000;
+			}
+        </style>
+    </head>
+    <body ng-controller="myCtrl">
+        <div>
+	      <h1>Filter</h1>
+
+	      <h2><i>custom filter</i></h2>
+	      <input type="text" name="txtsearch" ng-model="searchtxt" placeholder="Search any column">
+	      <table border="1" style="margin: 10px">
+	      	<tr style="background-color: #ccc">
+	      		<th> Sr#</th>
+	      		<th> Name</th>
+	      		<th> Age</th>
+	      		<th> Organization</th>
+	      	</tr>
+	      	<tr ng-repeat="rec in records | filter:searchtxt" ng-class-odd="odd" ng-class-even="even">
+	      		<td ng-bind="$index +1"> </td>
+	      		<td ng-bind="rec.name"> </td>
+	      		<td ng-bind="rec.age"> </td>
+	      		<td ng-bind="rec.company"> </td>
+	      	</tr>
+	      </table>
+    </body>
+    <script src="scripts/angular.min.js"></script>
+    <script type="text/javascript">
+    	var myApp = angular.module('myApp', []);
+
+		myApp.controller('myCtrl', function($scope) {
+		    $scope.records = [	{name : "Ujjwal Kumar", age : 35, company : "FIS"}, 
+							    {name : "Swapnil Joshi", age : 34, company : "FIS"}, 
+							    {name : "Shivraj Pachling", age : 36, company : "FIS"},
+							    {name : "Sandeep Vaid", age : 33, company : "WMH"},
+							    {name : "Sandeep Pandit", age : 34, company : "CTS"},
+							    {name : "Shekahr Dhupkar", age : 33, company : "TCS"},
+							    {name : "Vijay Kulkarni", age : 35, company : "HSBC"}
+							  ];
+
+		});  
+
+		myApp.filter('custFilter', function(){});
+    </script>
+    
+</html>
