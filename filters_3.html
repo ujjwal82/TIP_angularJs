@@ -13,9 +13,6 @@
 			.even{
 				background-color: #ececec;
 			}
-			.odd:hover,.even:hover{
-				background-color: #ccc;
-			}
 			table{
 				border-collapse: collapse;
 				word-spacing: 5px;
@@ -49,9 +46,9 @@
 	      <table border="1" style="margin: 10px">
 	      	<tr style="background-color: #ccc">
 	      		<th> Sr#</th>
-	      		<th> Name</th>
-	      		<th> Age</th>
-	      		<th> Organization</th>
+	      		<th ng-click="sortByMe('name')"> Name</th>
+	      		<th ng-click="sortByMe('age')"> Age</th>
+	      		<th ng-click="sortByMe('company')"> Organization</th>
 	      	</tr>
 	      	<tr ng-repeat="rec in records | custFilter:txtNameSearch	" ng-class-odd="odd" ng-class-even="even">
 	      		<td ng-bind="$index +1"> </td>
@@ -65,17 +62,20 @@
     <script type="text/javascript">
     	var myApp = angular.module('myApp', []);
 
-		myApp.controller('myCtrl', function($scope) {
-		    $scope.records = [	{name : "Ujjwal Kumar", age : 35, company : "FIS"}, 
-							    {name : "Swapnil Joshi", age : 34, company : "FIS"}, 
-							    {name : "Shivraj Pachling", age : 36, company : "FIS"},
-							    {name : "Sandeep Vaid", age : 33, company : "WMH"},
-							    {name : "Sandeep Pandit", age : 34, company : "CTS"},
-							    {name : "Shekahr Dhupkar", age : 33, company : "TCS"},
-							    {name : "Vijay Kulkarni", age : 35, company : "HSBC"}
-							  ];
-
-		});  
+		myApp.controller('myCtrl', ['$scope','$filter', function($scope, $filter) {
+				    $scope.records = [	{name : "Ujjwal Kumar", age : 35, company : "FIS"}, 
+									    {name : "Swapnil Joshi", age : 34, company : "FIS"}, 
+									    {name : "Shivraj Pachling", age : 36, company : "FIS"},
+									    {name : "Sandeep Vaid", age : 33, company : "WMH"},
+									    {name : "Sandeep Pandit", age : 34, company : "CTS"},
+									    {name : "Shekahr Dhupkar", age : 33, company : "TCS"},
+									    {name : "Vijay Kulkarni", age : 35, company : "HSBC"}
+									  ];
+					$scope.sortByMe = function(key){
+						$scope.records= $filter('orderBy')($scope.records, key);
+					}
+		
+				}]);  
 
 		myApp.filter('custFilter', function(){
 			return function(input, name){
