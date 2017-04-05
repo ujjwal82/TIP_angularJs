@@ -27,7 +27,7 @@
         <div>
 	      <h1>Filter</h1>
 
-	      <h2><i>custom filter</i></h2>
+	      <h2><i>in-built filter</i></h2>
 	      <input type="text" name="txtsearch" ng-model="searchtxt" placeholder="Search any column">
 	      <table border="1" style="margin: 10px">
 	      	<tr style="background-color: #ccc">
@@ -37,6 +37,23 @@
 	      		<th> Organization</th>
 	      	</tr>
 	      	<tr ng-repeat="rec in records | filter:searchtxt" ng-class-odd="odd" ng-class-even="even">
+	      		<td ng-bind="$index +1"> </td>
+	      		<td ng-bind="rec.name"> </td>
+	      		<td ng-bind="rec.age"> </td>
+	      		<td ng-bind="rec.company"> </td>
+	      	</tr>
+	      </table>
+
+	      <h2><i>custom filter</i></h2>
+	      <input type="text" name="txtsearch" ng-model="txtNameSearch" placeholder="Search name">
+	      <table border="1" style="margin: 10px">
+	      	<tr style="background-color: #ccc">
+	      		<th> Sr#</th>
+	      		<th> Name</th>
+	      		<th> Age</th>
+	      		<th> Organization</th>
+	      	</tr>
+	      	<tr ng-repeat="rec in records | custFilter:txtNameSearch	" ng-class-odd="odd" ng-class-even="even">
 	      		<td ng-bind="$index +1"> </td>
 	      		<td ng-bind="rec.name"> </td>
 	      		<td ng-bind="rec.age"> </td>
@@ -60,7 +77,24 @@
 
 		});  
 
-		myApp.filter('custFilter', function(){});
+		myApp.filter('custFilter', function(){
+			return function(input, name){
+				var output =[];
+
+				if(!!name){
+					name = name.toLowerCase();
+					for (var i=0; i<input.length; i++){
+						if(input[i].name.toLowerCase().indexOf(name)!== -1)
+						{
+							output.push(input[i]);
+						}
+					}
+				}else{
+					output = input;
+				}
+				return output;
+			}
+		});
     </script>
     
 </html>
