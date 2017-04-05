@@ -1,0 +1,107 @@
+<!doctype html>
+<html ng-app="myApp">
+
+    <head>
+        <title> Angular - filter examples</title>
+	    <script src="scripts/angular.min.js"></script>
+        <style>
+			body {
+			    font-family: "Segoe UI",Arial,sans-serif;
+			}
+			.odd{
+				background-color: #fff;
+			}
+			.even{
+				background-color: #ececec;
+			}
+			.odd:hover,.even:hover{
+				background-color: #ccc;
+			}
+			table{
+				border-collapse: collapse;
+				word-spacing: 5px;
+				border: 1px solid #000;
+			}
+        </style>
+    </head>
+    <body ng-controller="myCtrl">
+    	<h1>Nested table</h1>
+        <div>
+
+	      <h2><i>ng-repeat-start and ng-repeat-end</i></h2>
+
+	      <h2><i></i></h2>
+	      <table border="1" style="margin: 10px">
+	      	<tr style="background-color: #ccc">
+	      		<th> Organization</th>
+	      		<th> Name</th>
+	      		<th> Age</th>
+	      		<th> Gender</th>
+	      	</tr>
+	      	<tr ng-repeat-start="rec in records ">
+	      		<td ng-bind="rec.company" colspan="4"> </td>
+	      	</tr>
+	      	<tr ng-repeat-end ng-repeat-start="it in rec.employees ">
+	      		<td></td>
+	      		<td ng-bind="it.name"></td>
+	      		<td ng-bind="it.age"></td>
+	      		<td ng-bind="it.gender"></td>
+	      	</tr>
+	      	<tr ng-repeat-end> </tr>
+
+	      </table>
+	    </div>
+
+    	<div>
+
+	      <h2><i>ng-repeat</i></h2>
+	      Select all <input type="checkbox" ng-model="selectAll" ng-click="doSelectAll()">
+	      <table border="1" style="margin: 10px">
+	      	<tr style="background-color: #ccc">
+	      		<th> Organization</th>
+	      		<th> Name</th>
+	      		<th> Age</th>
+	      		<th> Gender</th>
+	      	</tr>
+	      	<tbody ng-repeat="rec in records">
+	      		<tr>
+	      			<td ng-bind="rec.company" colspan="4"> </td>
+	      		</tr>
+				<tr ng-repeat="it in rec.employees">
+		      		<td><input type="checkbox" ng-model="it.selected"></td>
+		      		<td ng-bind="it.name"></td>
+		      		<td ng-bind="it.age"></td>
+		      		<td ng-bind="it.gender"></td>
+				</tr>
+	      	</tbody>
+	      </table>
+    	</div>
+
+    </body>
+    <script type="text/javascript">
+    	var myApp = angular.module('myApp', []);
+
+		myApp.controller('myCtrl', function($scope) {
+		    $scope.records = [ {company : "FIS", employees: [	{name : "Ujjwal Kumar", age : 35, gender : "M"}, 
+							    								{name : "Swapnil Joshi", age : 34, gender : "M"}, 
+							    								{name : "Shivraj Pachling", age : 36, gender : "M"}]}
+							    								,
+							    {company : "WMH", employees: [	{name : "Sandeep Vaid", age : 33, gender : "M"}, 
+							    								{name : "Simar Kaur", age : 33, gender : "F"}]},
+							    {company : "CTS", employees: [	{name : "Sandeep Pandit", age : 34, gender : "M"}]},
+							    {company : "TCS", employees: [	{name : "Shekahr Dhupkar", age : 33, gender : "M"}]},
+							    {company : "HSBC", employees: [	{name : "Vijay Kulkarni", age : 35, gender : "M"}]}		    
+						     ];
+
+			$scope.doSelectAll =  function(){
+				angular.forEach($scope.records, function(rec){
+					angular.forEach(rec.employees, function(item){
+						item.selected = $scope.selectAll;
+					})
+				})
+			}
+		});  
+
+    </script>
+    
+</html>
