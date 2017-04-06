@@ -3,10 +3,13 @@
 
     <head>
         <title> Angular - filter examples</title>
-	    <script src="scripts/angular.min.js"></script>
+	    <script src="../scripts/angular.min.js"></script>
         <style>
 			body {
 			    font-family: "Segoe UI",Arial,sans-serif;
+			}
+			.header{
+				background-color: #ccc;
 			}
 			.odd{
 				background-color: #fff;
@@ -20,7 +23,7 @@
 			table{
 				border-collapse: collapse;
 				word-spacing: 5px;
-				border: 1px solid #000;
+				border: 1px solid #ccc;
 			}
         </style>
     </head>
@@ -28,80 +31,64 @@
     	<h1>Nested table</h1>
         <div>
 
-	      <h2><i>ng-repeat-start and ng-repeat-end</i></h2>
+			<h2><i>ng-repeat-start and ng-repeat-end</i></h2>
 
-	      <h2><i></i></h2>
-	      <table border="1" style="margin: 10px">
-	      	<tr style="background-color: #ccc">
-	      		<th> Organization</th>
-	      		<th> Name</th>
-	      		<th> Age</th>
-	      		<th> Gender</th>
-	      	</tr>
-	      	<tr ng-repeat-start="rec in records ">
-	      		<td ng-bind="rec.company" colspan="4"> </td>
-	      	</tr>
-	      	<tr ng-repeat-end ng-repeat-start="it in rec.employees ">
-	      		<td></td>
-	      		<td ng-bind="it.name"></td>
-	      		<td ng-bind="it.age"></td>
-	      		<td ng-bind="it.gender"></td>
-	      	</tr>
-	      	<tr ng-repeat-end> </tr>
+			<h2><i></i></h2>
+			<table border="1" style="margin: 10px; width: 900px">
+				<thead>
+					<tr class="header">
+						<th>
+							<button type="button" ng-click="expandAll(allExpanded = !allExpanded)">
+								<span ng-bind="allExpanded ? '-' : '+'"></span>
+							</button>
+							</th>
+						<th>Name</th>
+						<th>Address</th>
+						<th>City</th>
+						<th>State</th>
+						<th>ZIP Code</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat-start="dealer in dealers" ng-class-odd="odd" ng-class-even="even">
+						<td align="center"><button type="button" ng-click="expanded = !expanded" expand>
+							<span ng-bind="expanded? '-':'+'"></span>
+						</button></td>
+						<td ng-bind="dealer['Dealer Name']"></td>
+						<td ng-bind="dealer.Address"></td>
+						<td ng-bind="dealer.City"></td>
+						<td ng-bind="dealer.State"></td>
+						<td ng-bind="dealer['ZIP Code']"></td>
+					</tr>
+					<tr ng-repeat-end ng-show="expanded">
+						<td></td>
+						<td colspan="6">
+							<table  border="1" style="width: 90%">
+								<thead>
+									<th>Brand</th>
+									<th style="width:15%">Product I</th>
+									<th style="width:15%">Product II</th>
+									<th style="width:15%">Product III</th>
+									<th style="width:15%">Product IV</th>
+									<th style="width:15%">Product V</th>
+								</thead>
+								<tbody>
+									<tr ng-repeat="brand in dealer.Brands">
+										<td ng-bind="brand.Brand"></td>
+										<td ng-bind="brand['Product I']" align="center"> </td>
+										<td ng-bind="brand['Product II']" align="center"> </td>
+										<td ng-bind="brand['Product III']" align="center"> </td>
+										<td ng-bind="brand['Product IV']" align="center"> </td>
+										<td ng-bind="brand['Product V']" align="center"> </td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 
-	      </table>
-	    </div>
-
-    	<div>
-
-	      <h2><i>ng-repeat</i></h2>
-	      Select all <input type="checkbox" ng-model="selectAll" ng-click="doSelectAll()">
-	      <table border="1" style="margin: 10px">
-	      	<tr style="background-color: #ccc">
-	      		<th> Organization</th>
-	      		<th> Name</th>
-	      		<th> Age</th>
-	      		<th> Gender</th>
-	      	</tr>
-	      	<tbody ng-repeat="rec in records">
-	      		<tr>
-	      			<td ng-bind="rec.company" colspan="4"> </td>
-	      		</tr>
-				<tr ng-repeat="it in rec.employees">
-		      		<td><input type="checkbox" ng-model="it.selected"></td>
-		      		<td ng-bind="it.name"></td>
-		      		<td ng-bind="it.age"></td>
-		      		<td ng-bind="it.gender"></td>
-				</tr>
-	      	</tbody>
-	      </table>
-    	</div>
-
-    </body>
-    <script type="text/javascript">
-    	var myApp = angular.module('myApp', []);
-
-		myApp.controller('myCtrl', function($scope) {
-		    $scope.records = [ {company : "FIS", employees: [	{name : "Ujjwal Kumar", age : 35, gender : "M"}, 
-							    								{name : "Swapnil Joshi", age : 34, gender : "M"}, 
-							    								{name : "Shivraj Pachling", age : 36, gender : "M"}]}
-							    								,
-							    {company : "WMH", employees: [	{name : "Sandeep Vaid", age : 33, gender : "M"}, 
-							    								{name : "Simar Kaur", age : 33, gender : "F"}]},
-							    {company : "CTS", employees: [	{name : "Sandeep Pandit", age : 34, gender : "M"}]},
-							    {company : "TCS", employees: [	{name : "Shekahr Dhupkar", age : 33, gender : "M"}]},
-							    {company : "HSBC", employees: [	{name : "Vijay Kulkarni", age : 35, gender : "M"}]}		    
-						     ];
-
-			$scope.doSelectAll =  function(){
-				angular.forEach($scope.records, function(rec){
-					angular.forEach(rec.employees, function(item){
-						item.selected = $scope.selectAll;
-					})
-				})
-			}
-		});  
-
-    </script>
+    <script src="app.js"></script>
     
 </html>
