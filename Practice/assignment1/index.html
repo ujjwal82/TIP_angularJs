@@ -1,0 +1,64 @@
+<!doctype html>
+<html ng-app="myApp">
+
+    <head>
+        <title> Angular - filter examples</title>
+        <style>
+			body {
+			    font-family: "Segoe UI",Arial,sans-serif;
+			}
+			.odd{
+				background-color: #fff;
+			}
+			.even{
+				background-color: #ececec;
+			}
+			table{
+				border-collapse: collapse;
+				word-spacing: 5px;
+				border: 1px solid #000;
+			}
+        </style>
+    </head>
+    <body ng-controller="myCtrl">
+        <div>
+	    	<h1 ng-bind="welcomeMsg"></h1>
+			<hr>
+
+			<h2><i>New/modify single record</i></h2>
+			<div>
+				<input type="text" ng-model="newRecord.recID" placeholder="Record ID">
+				<input type="text" ng-model="newRecord.name" placeholder="Name">
+				<input type="text" ng-model="newRecord.age" placeholder="Age">
+				<input type="text" ng-model="newRecord.company" placeholder="Organization">
+					<button type="button"  ng-disabled="addnew" ng-click="addNewRecord(newRecord);"> Add </button>
+					<input type="checkbox" ng-model="editable">
+					<button type="button" ng-disabled="editable" ng-click="saveRecord(newRecord);"> Save </button>
+			</div>
+
+			<h2><i>List of existing records</i></h2>
+			<table border="1" style="margin: 10px">
+				<tr style="background-color: #ccc">
+					<th> Sr#</th>
+					<th> Name</th>
+					<th> Age</th>
+					<th> Organization</th>
+					<th> Action</th>
+				</tr>
+				<tr ng-repeat="rec in records | filter:searchtxt" ng-class-odd="odd" ng-class-even="even">
+					<td ng-bind="$index +1"> </td>
+					<td ng-bind="rec.name"> </td>
+					<td ng-bind="rec.age"> </td>
+					<td ng-bind="rec.company"> </td>
+					<td> <button type="button" ng-click="addnew=false;loadRec(rec.recID);"> Edit </button>
+							<button type="button"> Delete </button>
+					</td>
+				</tr>
+			</table>
+		</div>
+    </body>
+    <script src="js/libs/angular.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    
+</html>

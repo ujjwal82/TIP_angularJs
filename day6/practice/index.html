@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+
+<html ng-app="myApp">
+
+    <head>
+        <title> This is my landing page for first SPA</title>
+        <script src="js/libs/angular.min.js"></script>
+        <script src="js/controllers.js"></script>
+        <script src="js/app.js"></script>
+    </head>
+    
+    <body>
+        <div ng-controller="homeCtrl">
+            <h2 ng-bind="welcomeMessage"></h2>
+        </div>
+        <div ng-controller="dataEntryCtrl">
+            <h2 ng-bind="welcomeMessage"></h2>
+            
+            <table>
+                <thead>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Organization</th>
+                    <th>Departmane</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> <input type="text" ng-bind="newRec.name"></td>
+                        <td style="width:50px"> <input type="text" ng-bind="newRec.age"></td>
+                        <td> <input type="text" ng-bind="newRec.company"></td>
+                        <td> <input type="text" ng-bind="neeRec.gender"></td>
+                        <td> <button type="button"> Add </button>
+                            <button type="button"> Save </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div ng-controller="displayCtrl">
+            <h2 ng-bind="welcomeMessage"></h2>
+        </div>
+    </body>
+</html>
