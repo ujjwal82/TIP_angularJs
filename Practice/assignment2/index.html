@@ -1,0 +1,101 @@
+<!doctype html>
+<html ng-app="myApp">
+
+    <head>
+        <title> Angular - filter examples</title>
+        <link rel="stylesheet" href="styles/angular-material.min.css">
+        <link rel="stylesheet" href="styles/styles.css">
+
+    </head>
+    <body ng-controller="myCtrl">
+        <div>
+	    	<h1 ng-bind="welcomeMsg"></h1>
+			<hr>
+
+            <section style="margin:15px">
+                <md-toolbar class="md-primary">
+                    <div class="md-toolbar-tools">
+                        <h3 ng-bind="message"></h3>
+                    </div>
+                </md-toolbar>
+                <div layout="row">
+                    <md-input-container flex="25">
+                        <input type="text" ng-model="newRecord.recID" placeholder="Record ID">
+                    </md-input-container>
+                    
+                    <md-input-container flex="30" class="md-block">
+                         <label>Name</label>
+                        <input type="text" md-maxlength="30" required="" md-no-asterisk="" ng-model="newRecord.name">
+                        <div ng-messages="newRecord.name.$error">
+                            <div ng-message="required">This is required.</div>
+                            <div ng-message="md-maxlength">The name must be less than 30 characters long.</div>
+                        </div>
+                    </md-input-container>
+                    
+                    <md-input-container  flex="10">
+                        <input type="number" ng-model="newRecord.age" placeholder="Age">
+                    </md-input-container>
+                    
+                    <md-input-container  flex="10">
+                        <label>Gender</label>
+                        <md-select name="gender" ng-model="newRecord.gender" required="">
+                            <md-option value="male"> Male</md-option>
+                            <md-option value="female"> Female</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container  flex="35">
+                        <input type="text" ng-model="newRecord.company" placeholder="Organization">
+                    </md-input-container>
+                </div>
+            </section>
+			<div>
+                <div layout="row">
+                </div>
+                <md-button class="md-raised md-primary" ng-disabled="addnew" ng-click="addNewRecord(newRecord);"> Add </md-button>
+                <md-checkbox ng-model="editable"></md-checkbox>
+                <md-button class="md-raised md-primary" ng-disabled="editable" ng-click="saveRecord(newRecord);"> Save </md-button>
+			</div>
+
+			<h2><i>List of existing records</i></h2>
+			<table border="1" style="margin: 10px">
+				<tr style="background-color: #ccc">
+					<th> Sr#</th>
+					<th> Name</th>
+					<th> Age</th>
+					<th> Gender</th>
+					<th> Organization</th>
+					<th style="width:150px"> </th>
+				</tr>
+				<tr ng-repeat="rec in records | filter:searchtxt" ng-class-odd="odd" ng-class-even="even">
+					<td ng-bind="$index +1"> </td>
+					<td ng-bind="rec.name"> </td>
+					<td ng-bind="rec.age"> </td>
+					<td ng-bind="rec.gender|custFilter"> </td>
+					<td ng-bind="rec.company"> </td>
+					<td style="width:15px"> 
+                        <md-input-container>
+                            <label>Action</label>
+                            <md-select name="action" ng-model="gender">
+                                <md-option value="edit" ng-click="addnew=false;loadRec(rec.recID);"> Edit</md-option>
+                                <md-option value="delete"> Delete </md-option>
+                            </md-select>
+                        </md-input-container>
+					</td>
+				</tr>
+			</table>
+		</div>
+    </body>
+	<script src="js/libs/angular.min.js"></script>
+	<script src="js/libs/angular-animate.min.js"></script>
+	<script src="js/libs/angular-aria.min.js"></script>
+
+	<!-- Angular Material Library -->
+	<script src="js/libs/angular-material.min.js"></script>
+
+    <script src="js/app.js"></script>
+	<!-- Angular Material Library -->
+	<script src="js/libs/angular-material.min.js"></script>
+
+    <script src="js/controllers.js"></script>
+    
+</html>

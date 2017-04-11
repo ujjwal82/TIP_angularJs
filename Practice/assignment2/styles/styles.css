@@ -1,0 +1,23 @@
+body {
+    font-family: "Segoe UI",Arial,sans-serif;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.odd{
+    background-color: #fff;
+}
+.even{
+    background-color: #ececec;
+}
+table{
+    border-collapse: collapse;
+    word-spacing: 5px;
+    border: 1px solid #000;
+}
+demo-include{
+    border: 1px solid #000;
+    display: flex;
+    box-sizing:border-box;
+}
